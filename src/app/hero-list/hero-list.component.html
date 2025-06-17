@@ -10,15 +10,21 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let hero of heroes">
-        <tr>
-          <td>{{ hero.name }}</td>
-          <td [style.backgroundColor]="hero.suitColor"></td>
-          <td><i class="fa-solid fa-check-circle" *ngIf="hero.hasCape"></i></td>
-          <td>{{ hero.lastMission | date }}</td>
-          <td>{{ hero.isRetired ? 'Yes' : 'No' }}</td>
-        </tr>
-      </ng-container>
+      @for (hero of heroes$(); track hero.id) {
+      <tr>
+        <td>{{ hero.name }}</td>
+        <td [style.backgroundColor]="hero.suitColor"></td>
+        <td>
+          @if (hero.hasCape) {
+          <i class="fa-solid fa-check-circle"></i>
+          } @else {
+          <i class="fa-solid fa-times-circle"></i>
+          }
+        </td>
+        <td>{{ hero.lastMission | date }}</td>
+        <td>{{ hero.isRetired ? "Yes" : "No" }}</td>
+      </tr>
+      }
     </tbody>
   </table>
 </div>
