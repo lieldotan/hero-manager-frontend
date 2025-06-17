@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroListComponent } from './hero-list/hero-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ToastrModule } from 'ngx-toastr';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -14,8 +18,26 @@ import { NavbarComponent } from './navbar/navbar.component';
     HeroListComponent,
     NavbarComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      timeOut: 3000,
+      closeButton: true,
+      progressBar: true,
+    }),
+    HttpClientModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

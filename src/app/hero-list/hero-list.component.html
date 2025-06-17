@@ -13,10 +13,15 @@
       <ng-container *ngFor="let hero of heroes">
         <tr>
           <td>{{ hero.name }}</td>
-          <td [style.backgroundColor]="hero.suitColor"></td>
+          <td
+            [style.backgroundColor]="hero.suitColor"
+            [style.color]="getContrastColor(hero.suitColor)"
+          >
+            {{ hero.suitColor }}
+          </td>
           <td><i class="fa-solid fa-check-circle" *ngIf="hero.hasCape"></i></td>
           <td>{{ hero.lastMission | date }}</td>
-          <td>{{ hero.isRetired ? 'Yes' : 'No' }}</td>
+          <td>{{ hero.isRetired ? "Yes" : "No" }}</td>
         </tr>
       </ng-container>
     </tbody>
