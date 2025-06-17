@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Suit Color</th>
+        <th>Has Cape</th>
+        <th>Last Mission</th>
+        <th>Retired</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let hero of heroes">
+        <tr>
+          <td>{{ hero.name }}</td>
+          <td [style.backgroundColor]="hero.suitColor"></td>
+          <td><i class="fa-solid fa-check-circle" *ngIf="hero.hasCape"></i></td>
+          <td>{{ hero.lastMission | date }}</td>
+          <td>{{ hero.isRetired ? 'Yes' : 'No' }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
