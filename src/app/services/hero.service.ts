@@ -1,40 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { Hero } from '../interfaces/hero.interface';
 import { environment } from '../../environments/environment';
+import { LoggingService } from './logging.service';
+import { ApiErrorHandlerService } from './api-error-handler.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class HeroService {
-  private apiUrl = environment.apiUrl + '/heroes';
+  private resourceUrl = `${environment.apiUrl}/heroes`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private logger: LoggingService,
+    private errorHandler: ApiErrorHandlerService
+  ) {}
 
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.apiUrl).pipe(
-      tap((_) => this.log('fetched heroes')),
-      catchError(this.handleError)
-    );
-  }
-
-  private log(message: string) {
-    console.log(`HeroService: ${message}`);
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.ok) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${JSON.stringify(error)}`
-      );
-    }
-    return throwError(
-      () =>
-        new Error('There was an error fetching heroes. Please try again later.')
+    return this.http.get<Hero[]>(this.resourceUrl).pipe(
+      tap(() => this.logger.log('Fetched heroes', 'DEBUG')),
+      catchError(this.errorHandler.handleError<Hero[]>('getHeroes'))
     );
   }
 }

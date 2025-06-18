@@ -4,23 +4,23 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { NotificationService } from '../services/notification.service';
+
+import { ApiErrorHandlerService } from '../services/api-error-handler.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private notify: NotificationService) {}
+  constructor(private errorHandler: ApiErrorHandlerService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
-      catchError((error: HttpErrorResponse) => {
-        const message = error.error?.message || error.message || 'Unknown server error';
-        this.notify.error(message, 'Error');
-        return throwError(() => error);
-      })
-    );
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next
+      .handle(req)
+      .pipe(catchError(this.errorHandler.handleError<any>('HTTP request')));
   }
 }
