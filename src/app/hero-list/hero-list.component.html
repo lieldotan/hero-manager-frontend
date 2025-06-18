@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (hero of heroes$(); track hero.id) {
+      @for (hero of heroes(); track hero.id) {
       <tr>
         <td>{{ hero.name }}</td>
         <td [style.backgroundColor]="hero.suitColor"></td>

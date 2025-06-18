@@ -1,4 +1,4 @@
-import { Component, Input, Signal, signal } from '@angular/core';
+import { Component, input, Input, Signal, signal } from '@angular/core';
 import { Hero } from '../interfaces/hero.interface';
 import { DatePipe } from '@angular/common';
 
@@ -10,10 +10,5 @@ import { DatePipe } from '@angular/common';
   imports: [DatePipe],
 })
 export class HeroListComponent {
-  private _heroes = signal<Hero[]>([]);
-  readonly heroes$: Signal<Hero[]> = this._heroes;
-
-  @Input() set heroes(value: Hero[]) {
-    this._heroes.set(value ?? []);
-  }
+  heroes = input.required<Hero[]>();
 }
