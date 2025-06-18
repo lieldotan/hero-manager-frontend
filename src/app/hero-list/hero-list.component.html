@@ -1,0 +1,30 @@
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Suit Color</th>
+        <th>Has Cape</th>
+        <th>Last Mission</th>
+        <th>Retired</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (hero of heroes(); track hero.id) {
+      <tr>
+        <td>{{ hero.name }}</td>
+        <td [style.backgroundColor]="hero.suitColor"></td>
+        <td>
+          @if (hero.hasCape) {
+          <i class="fa-solid fa-check-circle"></i>
+          } @else {
+          <i class="fa-solid fa-times-circle"></i>
+          }
+        </td>
+        <td>{{ hero.lastMission | date }}</td>
+        <td>{{ hero.isRetired ? "Yes" : "No" }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
