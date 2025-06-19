@@ -4,9 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
-import { HeroListComponent } from './hero-list/hero-list.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { HeroesComponent } from './components/heroes/heroes.component';
+import { HeroListComponent } from './components/hero-list/hero-list.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './interceptors/error.interceptor';

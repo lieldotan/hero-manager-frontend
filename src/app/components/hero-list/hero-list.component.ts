@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Hero } from '../interfaces/hero.interface';
-import { getContrastColor } from '../utils/utils';
+import { Hero } from '../../interfaces/hero.interface';
+import { getContrastColor } from '../../utils/color-utils';
 
 @Component({
   selector: 'app-hero-list',
@@ -9,7 +9,6 @@ import { getContrastColor } from '../utils/utils';
 })
 export class HeroListComponent {
   @Input() heroes!: Hero[];
-  _contrastCtx: CanvasRenderingContext2D | null = null;
 
   getContrastColor(colorStr: string): 'black' | 'white' {
     return getContrastColor(colorStr);
