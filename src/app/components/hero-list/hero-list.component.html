@@ -13,7 +13,12 @@
       @for (hero of heroes(); track hero.id) {
       <tr>
         <td>{{ hero.name }}</td>
-        <td [style.backgroundColor]="hero.suitColor"></td>
+        <td
+          [style.backgroundColor]="hero.suitColor"
+          [style.color]="getContrastColor(hero.suitColor)"
+        >
+          {{ hero.suitColor }}
+        </td>
         <td>
           @if (hero.hasCape) {
           <i class="fa-solid fa-check-circle"></i>
