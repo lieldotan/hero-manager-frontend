@@ -1,3 +1,27 @@
+<div class="d-flex align-items-center mb-3">
+  <input
+    type="text"
+    class="form-control me-3"
+    style="max-width: 300px"
+    placeholder="Search heroes…"
+    [value]="filter()"
+    (input)="filter.set($any($event.target).value)"
+  />
+
+  <div class="form-check form-switch">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="showRetiredSwitch"
+      [checked]="showRetired()"
+      (change)="showRetired.set($any($event.target).checked)"
+    />
+    <label class="form-check-label" for="showRetiredSwitch">
+      Show retired
+    </label>
+  </div>
+</div>
+
 <div class="table-responsive">
   <table class="table table-striped table-hover">
     <thead>
@@ -10,7 +34,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (hero of heroes(); track hero.id) {
+      @for (hero of filteredHeroes(); track hero.id) {
       <tr>
         <td>{{ hero.name }}</td>
         <td
