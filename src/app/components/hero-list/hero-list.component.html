@@ -1,20 +1,22 @@
 <div class="d-flex align-items-center mb-3">
   <input
+    #searchHeroes
     type="text"
     class="form-control me-3"
     style="max-width: 300px"
     placeholder="Search heroes…"
     [value]="filter()"
-    (input)="filter.set($any($event.target).value)"
+    (input)="filter.set(searchHeroes.value)"
   />
 
   <div class="form-check form-switch">
     <input
+      #retiredCheckbox
       class="form-check-input"
       type="checkbox"
       id="showRetiredSwitch"
       [checked]="showRetired()"
-      (change)="showRetired.set($any($event.target).checked)"
+      (change)="showRetired.set(retiredCheckbox.checked)"
     />
     <label class="form-check-label" for="showRetiredSwitch">
       Show retired
@@ -51,7 +53,13 @@
           }
         </td>
         <td>{{ hero.lastMission | date }}</td>
-        <td>{{ hero.isRetired ? "Yes" : "No" }}</td>
+        <td>
+          @if (hero.isRetired) {
+          <i class="fa-solid fa-check-circle"></i>
+          } @else {
+          <i class="fa-solid fa-times-circle"></i>
+          }
+        </td>
       </tr>
       }
     </tbody>

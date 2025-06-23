@@ -1,10 +1,4 @@
-import {
-  Component,
-  input,
-  Input,
-  signal,
-  computed,
-} from '@angular/core';
+import { Component, input, Input, signal, computed } from '@angular/core';
 import { Hero } from '../../interfaces/hero.interface';
 import { getContrastColor } from '../../utils/color-utils';
 import { DatePipe } from '@angular/common';
@@ -26,21 +20,21 @@ export class HeroListComponent {
   filteredHeroes = computed(() => {
     const term = this.filter().trim().toLowerCase();
     return this.heroes()
-      .filter(h => this.showRetired() || !h.isRetired)
-      .filter(h => {
+      .filter((hero) => this.showRetired() || !hero.isRetired)
+      .filter((hero) => {
         const parts = [
-          h.name,
-          h.suitColor,
-          h.hasCape ? 'yes' : 'no',
-          h.isRetired ? 'yes' : 'no',
-          new Date(h.lastMission).toLocaleDateString(),
+          hero.name,
+          hero.suitColor,
+          new Date(hero.lastMission).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          }),
         ];
         if (!term) return true;
-        return parts.some(p => p.toLowerCase().includes(term));
+        return parts.some((part) => part.toLowerCase().includes(term));
       });
   });
 
-  getContrastColor(colorStr: string): 'black' | 'white' {
-    return getContrastColor(colorStr);
-  }
+  public getContrastColor = getContrastColor;
 }
