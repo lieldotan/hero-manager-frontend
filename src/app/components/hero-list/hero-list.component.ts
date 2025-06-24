@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { Hero } from '../../interfaces/hero.interface';
 import { getContrastColor } from '../../utils/color-utils';
 import { DatePipe } from '@angular/common';
@@ -13,7 +13,13 @@ import { DatePipe } from '@angular/common';
 export class HeroListComponent {
   heroes = input.required<Hero[]>();
 
+  @Output() editHero = new EventEmitter<Hero>();
+
   getContrastColor(colorStr: string): 'black' | 'white' {
     return getContrastColor(colorStr);
+  }
+
+  edit(hero: Hero) {
+    this.editHero.emit(hero);
   }
 }

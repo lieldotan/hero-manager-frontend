@@ -7,6 +7,7 @@
         <th>Has Cape</th>
         <th>Last Mission</th>
         <th>Retired</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,11 @@
         </td>
         <td>{{ hero.lastMission | date }}</td>
         <td>{{ hero.isRetired ? "Yes" : "No" }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary" (click)="edit(hero)">
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>
       </tr>
       }
     </tbody>

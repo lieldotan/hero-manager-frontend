@@ -1,0 +1,103 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    {{ isEditMode ? "Edit Hero" : "Create Hero" }}
+  </h5>
+  <button
+    type="button"
+    class="btn-close"
+    (click)="activeModal.dismiss()"
+  ></button>
+</div>
+
+@if (!isLoading) {
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-3">
+      <label>Name</label>
+      <input formControlName="name" class="form-control" />
+      @if (nameErrors) {
+      <div class="text-danger">{{ nameErrors }}</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label>Suit Color</label>
+      <input formControlName="suitColor" type="color" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Last Mission</label>
+      <input formControlName="lastMission" type="date" class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+        formControlName="hasCape"
+        type="checkbox"
+        class="form-check-input"
+      />
+      <label class="form-check-label">Has Cape</label>
+    </div>
+    <div class="form-check mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        formControlName="isRetired"
+        type="checkbox"
+        class="form-check-input"
+      />
+      <label class="form-check-label">Retired</label>
+    </div>
+
+    <div formArrayName="powers" class="mb-3">
+      <label class="me-2">Powers</label>
+      @for (ctrl of powersArray.controls; track $index) {
+      <div class="input-group mb-2">
+        <input
+          [formControlName]="$index"
+          placeholder="Power #{{ $index + 1 }}"
+          class="form-control"
+        />
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="removePower($index)"
+        >
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      }
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="addPower()"
+      >
+        <i class="fa fa-plus"></i> Add Power
+      </button>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="form.invalid || isSaving"
+      >
+        {{ isEditMode ? "Save Changes" : "Create Hero" }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="activeModal.dismiss()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+} @else {
+<ng-template #loadingTpl>
+  <div class="text-center py-5">
+    <div class="spinner-border" role="status"></div>
+    <p>Loading...</p>
+  </div> </ng-template
+>}

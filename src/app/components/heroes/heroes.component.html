@@ -1,4 +1,22 @@
 <div>
-  <h1>Heroes</h1>
-  <app-hero-list [heroes]="heroes"></app-hero-list>
+  <h1 class="d-flex justify-content-between align-items-center">
+    Heroes
+    <button class="btn btn-primary" (click)="openHeroModal()">
+      + Create Hero
+    </button>
+  </h1>
+
+  <app-hero-list
+    [heroes]="heroes"
+    (editHero)="openHeroModal($event)"
+  ></app-hero-list>
 </div>
+
+<ng-template #heroModal let-modal>
+  <app-hero-form
+    [hero]="selectedHero"
+    [existingNames]="heroNames"
+    (submitted)="onHeroSubmitted($event); modal.close()"
+    (cancel)="modal.dismiss()"
+  ></app-hero-form>
+</ng-template>

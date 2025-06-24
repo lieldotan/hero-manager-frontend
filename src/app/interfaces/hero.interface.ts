@@ -5,4 +5,7 @@ export interface Hero {
   hasCape: boolean;
   lastMission: string;
   isRetired: boolean;
+  powers: string[];
 }
+
+export type HeroCreateSchema = Omit<Hero, 'id'>;
